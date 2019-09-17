@@ -1,0 +1,26 @@
+{
+    "name": "shopping-cart-api-nodejs",
+    "version": "1.0.0",
+    "description": "",
+    "main": "src/app.js",
+    "scripts": {
+        "test": "mocha src/tests/*.js --recursive --exit"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/juancitowillyr46/shopping-cart-api-nodejs.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/juancitowillyr46/shopping-cart-api-nodejs/issues"
+    },
+    "homepage": "https://github.com/juancitowillyr46/shopping-cart-api-nodejs#readme",
+    "dependencies": {
+        "mocha": "^6.2.0",
+        "mongoose": "^5.7.0"
+    },
+    "devDependencies": {
+        "eslint": "^6.3.0"
+    }
+}
