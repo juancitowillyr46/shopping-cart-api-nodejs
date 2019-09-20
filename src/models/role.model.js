@@ -8,21 +8,23 @@ const RoleSchema = new Schema({
         required: [true, `Field Name Required`]
     },
     status: {
-        type: Schema.Types.ObjectId,
-        ref: 'StatusRole',
+        type: Boolean,
+        required: [true, `Field Status Required`]
     },
     clientkey: {
         type: String,
-        required: [true, `Fiel Key Required`]
+        required: [true, `Field Key Required`]
     }
 });
+
 const Role = mongoose.model('Role', RoleSchema);
 
-const StatusSchema = new Schema({
-    name: String,
-    clientkey: String
-});
+// Create Schema and Model
+// const StatusSchema = new Schema({
+//     name: String,
+//     clientkey: String
+// });
 
-const StatusRole = mongoose.model('StatusRole', StatusSchema);
+// const StatusRole = mongoose.model('StatusRole', StatusSchema);
 
-module.exports = { Role, StatusRole };
+module.exports = { Role };

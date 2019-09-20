@@ -16,13 +16,12 @@ const UserSchema = new Schema({
         required: [true, `Field Email Required`]
     },
     status: {
-        type: Number,
-        required: [true, `Field Status Required`]
+        type: Schema.Types.ObjectId,
+        ref: 'Status'
     },
     roles: [{
         type: Schema.Types.ObjectId,
-        ref: 'Role',
-        required: [true, `Field Role Required`]
+        ref: 'Role'
     }],
     isverified: {
         type: Boolean,

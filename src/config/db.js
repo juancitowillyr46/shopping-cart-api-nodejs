@@ -5,6 +5,8 @@ function connect() {
     mongoose.connect('mongodb://localhost/shoppingcart', {
         useNewUrlParser: true,
         useUnifiedTopology: true
+    }, () => {
+
     });
 
     mongoose.connection.once('open', () => {
@@ -19,4 +21,8 @@ function close() {
     return mongoose.disconnect();
 }
 
-module.exports = { connect, close };
+function cleanDataBase() {
+    return mongoose.connection.db.dropDatabase();
+}
+
+module.exports = { connect, close, cleanDataBase };
