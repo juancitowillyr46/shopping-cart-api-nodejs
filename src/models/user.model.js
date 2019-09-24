@@ -13,7 +13,7 @@ const UserSchema = new Schema({
     },
     email: {
         type: String,
-        required: [true, `Field Email Required`]
+        required: [true, `Field Email Required`],
     },
     status: {
         type: Schema.Types.ObjectId,

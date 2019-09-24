@@ -1,35 +1,18 @@
 const express = require('express');
 const router = express.Router();
+const userController = require('../controllers/users.controller');
+const userMiddlewares = require('../middlewares');
 
-router.get('/', (req, res) => {
-    res.status(200).send({
-        message: `GET Request Successfull`
-    });
-});
+router.get('/', userController.getUsers);
 
-router.get('/:id', (req, res) => {
-    res.status(200).send({
-        message: `GET Request Successfull`,
-        params: req.params
-    });
-});
+router.get('/:id', userMiddlewares.validateIdParam, userController.getUserById);
 
-router.post('/', (req, res) => {
-    res.status(200).send({
-        message: `POST Request Successfull`
-    });
-});
+router.post('/', userController.postUser);
 
-router.put('/:id', (req, res) => {
-    res.status(200).send({
-        message: `PUT Request Successfull`
-    });
-});
+router.put('/:id', userMiddlewares.validateIdParam, userController.putUser);
 
-router.delete('/:id', (req, res) => {
-    res.status(200).send({
-        message: `DELETE Request Successfull`
-    });
-});
+router.delete('/:id', userMiddlewares.validateIdParam, userController.deleteUser);
+
+router.post('/login', userController.login);
 
 module.exports = router;

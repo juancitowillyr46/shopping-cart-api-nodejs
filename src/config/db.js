@@ -4,7 +4,8 @@ function connect() {
     mongoose.Promise = global.Promise;
     mongoose.connect('mongodb://localhost/shoppingcart', {
         useNewUrlParser: true,
-        useUnifiedTopology: true
+        useUnifiedTopology: true,
+        useFindAndModify: false
     }, () => {
 
     });
