@@ -13,6 +13,4 @@ router.put('/:id', userMiddlewares.validateIdParam, userController.putUser);
 
 router.delete('/:id', userMiddlewares.validateIdParam, userController.deleteUser);
 
-router.post('/login', userController.login);
-
 module.exports = router;

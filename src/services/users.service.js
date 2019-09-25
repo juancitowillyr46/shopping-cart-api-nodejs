@@ -2,6 +2,8 @@ const userModel = require('../models/user.model').User;
 const roleModel = require('../models/role.model').Role;
 const statusModel = require('../models/status.model').Status;
 const bycryptjs = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const ms = require('ms');
 
 exports.postUser = async(userDTO) => {
 
@@ -75,10 +77,25 @@ exports.deleteById = async(id, data) => {
 
 exports.findByCredentials = async(loginDTO) => {
     try {
+        let token = null;
         const updateUser = await userModel.findOne({ email: loginDTO.username });
         if (updateUser !== null) {
+
             const success = await bycryptjs.compare(loginDTO.password, updateUser.password);
-            return (success !== null) ? true : false;
+
+            if (success) {
+
+                const payload = {
+                    sub: updateUser._id,
+                    iat: Math.floor(Date.now() / 1000),
+                    exp: Math.floor(Date.now() / 1000) + Math.floor(parseInt(process.env.JWT_PAYLOAD) / 1000),
+                };
+
+                token = jwt.sign(payload, process.env.JWT_KEY, { algorithm: process.env.JWT_ALGORITHM });
+
+            }
+
+            return token;
         }
 
     } catch (err) {

@@ -96,10 +96,11 @@ exports.deleteUser = async(req, res) => {
 exports.login = async(req, res) => {
 
     try {
-        const success = await userService.findByCredentials(req.body);
-        if (success === true) {
+        const isToken = await userService.findByCredentials(req.body);
+        if (isToken !== null) {
+            res.header('token', isToken);
             res.status(200).send({
-                message: `Login Successfull`
+                data: isToken
             });
         } else {
             res.status(400).send({
