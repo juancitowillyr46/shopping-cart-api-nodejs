@@ -17,11 +17,11 @@ exports.getUsers = async(req, res) => {
 exports.getUserById = async(req, res) => {
     try {
         const success = await userService.getUserById(req.params.id);
-        res.status(200).send({
+        return res.status(200).send({
             data: success
         });
     } catch (err) {
-        res.status(404).send({
+        return res.status(404).send({
             error: err
         });
     }
@@ -98,9 +98,9 @@ exports.login = async(req, res) => {
     try {
         const isToken = await userService.findByCredentials(req.body);
         if (isToken !== null) {
-            res.header('token', isToken);
+            res.header('Authorization', `Bearer ${isToken}`);
             res.status(200).send({
-                data: isToken
+                authorization: `Bearer ${isToken}`
             });
         } else {
             res.status(400).send({

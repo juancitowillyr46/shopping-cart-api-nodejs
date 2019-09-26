@@ -30,7 +30,7 @@ exports.postUser = async(userDTO) => {
         return (saveUser !== null) ? true : false;
 
     } catch (err) {
-        console.log(err);
+
         throw new Error();
     }
 
@@ -40,7 +40,6 @@ exports.getUsers = async() => {
     try {
         return await userModel.find({});
     } catch (err) {
-        console.log(err);
         throw new Error();
     }
 }
@@ -49,17 +48,18 @@ exports.getUserById = async(id) => {
     try {
         return await userModel.findById(id);
     } catch (err) {
-        console.log(err);
         throw new Error();
     }
 }
 
 exports.putUser = async(id, body) => {
     try {
-        let updateUser = await userModel.findOneAndUpdate({ _id: id }, body);
+        let password = await bycryptjs.hash(body.password, 10);
+        let bodyDTO = body;
+        bodyDTO.password = password;
+        let updateUser = await userModel.findOneAndUpdate({ _id: id }, bodyDTO);
         return (updateUser !== null) ? true : false;
     } catch (err) {
-        console.log(err);
         throw new Error();
     }
 }
@@ -70,7 +70,6 @@ exports.deleteById = async(id, data) => {
         let updateUser = await userModel.findOneAndUpdate({ _id: id }, { status: getStatus });
         return (updateUser !== null) ? true : false;
     } catch (err) {
-        console.log(err);
         throw new Error();
     }
 }
@@ -99,7 +98,14 @@ exports.findByCredentials = async(loginDTO) => {
         }
 
     } catch (err) {
-        console.log(err);
         throw new Error();
     }
 }
+
+// exports.validateToken = async(token) => {
+//     // try {
+
+//     // } catch (err) {
+//     //   throw new Error();
+//     // }
+// }
